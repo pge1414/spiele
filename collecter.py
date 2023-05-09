@@ -4,11 +4,11 @@ BREITE = 800
 HÖHE = 600
 
 
-class  Spiel(arcade.Window):
+class  Collecter(arcade.Window):
     def __init__(self, breite, höhe, titel):
         super().__init__(breite, höhe, titel)
 
-        arcade.set_background_color(arcade.color.BLUE)
+        arcade.set_background_color(arcade.color.DARK_GREEN)
 
         self.gegenstand_list = arcade.SpriteList()
 
@@ -46,11 +46,34 @@ class  Spiel(arcade.Window):
         heart4.center_y = random.randrange(HÖHE)
         self.gegenstand_list.append(heart4)
 
+        phone1 = arcade.Sprite("phone.png")
+        phone1.center_x = random.randrange(BREITE)
+        phone1.center_y = random.randrange(HÖHE)
+        self.gegenstand_list.append(phone1)
+
+        for i in range (1600):
+            grass = arcade.Sprite("grass.png", 0.3)
+            grass.center_x = random.randrange(BREITE)
+            grass.center_y = random.randrange(HÖHE)
+            self.gegenstand_list.append(grass)
+
+
+    def on_mouse_press(self, x, y, button, modifiers):
+        pseudosprite = arcade.Sprite()
+        pseudosprite.center_x = x
+        pseudosprite.center_y = y
+        pseudosprite.set_hit_box([(-1, 1), (1, 1), (-1, -1), (1, -1)])
+
+        gegenstand_hitlist = arcade.check_for_collision_with_list(pseudosprite, self.gegenstand_list)
+
+        for gegenstand in gegenstand_hitlist:
+            gegenstand.kill()
+
     def on_draw (self):
         self.clear()
 
         self.gegenstand_list.draw()
 
-spiel = Spiel(BREITE, HÖHE, "Suchspiel")
+spiel = Collecter(BREITE, HÖHE, "Suchspiel")
 arcade.run()
  
