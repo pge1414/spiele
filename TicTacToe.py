@@ -121,7 +121,7 @@ class  TicTacToe(arcade.Window):
                 self.felder_list[gegenstand.info -1] = self.player1_symbol
 
                 x_sprite = arcade.Sprite("X.png", 0.9)
-                x_sprite.set_position(gegenstand.center_x +45, gegenstand.center_y -190)
+                x_sprite.set_position(gegenstand.center_x , gegenstand.center_y)
                 self.gegenstand_list.append(x_sprite)
                 self.felder.remove(gegenstand)
 

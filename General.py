@@ -1,8 +1,9 @@
-import TicTacToe, Ball, arcade
+import Collecter, arcade
 
 BREITE = 700
 HÖHE = 700
 
-tictactoe_spiel = TicTacToe(BREITE, HÖHE, "Suchspiel")
+collecter1 = Collecter(BREITE, HÖHE, 'suchspiel')
+
 
 arcade.run()

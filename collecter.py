@@ -39,32 +39,28 @@ class  Collecter(arcade.Window):
 
 
         heart1 = arcade.Sprite("Heart.png")
-        heart1.center_x = random.randrange(BREITE)
-        heart1.center_y = random.randrange(HÖHE)
+        heart1.center_x = 80
+        heart1.center_y = 580
         self.gegenstand_list.append(heart1)
-        self.usables.append(heart1)
         self.anzahl_sprites += 1
 
 
         heart2 = arcade.Sprite("Heart.png")
-        heart2.center_x = random.randrange(BREITE)
-        heart2.center_y = random.randrange(HÖHE)
+        heart2.center_x = 110
+        heart2.center_y = 580
         self.gegenstand_list.append(heart2)
-        self.usables.append(heart2)
         self.anzahl_sprites += 1
 
         heart3 = arcade.Sprite("Heart.png")
-        heart3.center_x = random.randrange(BREITE)
-        heart3.center_y = random.randrange(HÖHE)
+        heart3.center_x = 140
+        heart3.center_y = 580
         self.gegenstand_list.append(heart3)
-        self.usables.append(heart3)
         self.anzahl_sprites += 1
         
         heart4 = arcade.Sprite("Heart.png")
-        heart4.center_x = random.randrange(BREITE)
-        heart4.center_y = random.randrange(HÖHE)
+        heart4.center_x = 50
+        heart4.center_y = 580
         self.gegenstand_list.append(heart4)
-        self.usables.append(heart4)
         self.anzahl_sprites += 1
 
         phone1 = arcade.Sprite("phone.png")
@@ -90,18 +86,18 @@ class  Collecter(arcade.Window):
             gegenstand.kill()
             self.anzahl_sprites -=1
             print(self.anzahl_sprites)
-            self.level_finished(self.anzahl_sprites)
-            
-            
+            print(self.level_finished())
 
     def on_draw (self):
         self.clear()
 
         self.gegenstand_list.draw()
 
-    def level_finished(self,inte) -> bool:
-        if inte == 0:
+    def level_finished(self):
+        if self.anzahl_sprites == 0:
             return True
+        else:
+            return False
 
     def play(self) -> bool:
 
@@ -111,4 +107,3 @@ class  Collecter(arcade.Window):
 
 spiel = Collecter(BREITE, HÖHE, "Suchspiel")
 arcade.run()
- 
