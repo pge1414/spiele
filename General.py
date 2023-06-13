@@ -1,9 +1,7 @@
-import Collecter, arcade
+import TicTacToe, GameOver
+BREITE= 800
+HÖHE = 600
 
-BREITE = 700
-HÖHE = 700
+tictactoe_spiel = TicTacToe(BREITE, HÖHE, "Suchspiel")
 
-collecter1 = Collecter(BREITE, HÖHE, 'suchspiel')
-
-
-arcade.run()
+gameOver = GameOver(BREITE, HÖHE, "Jaaaa")

@@ -1,4 +1,4 @@
-import arcade, time
+import arcade, time, random
 
 BREITE = 700
 HÖHE = 700
@@ -121,7 +121,7 @@ class  TicTacToe(arcade.Window):
                 self.felder_list[gegenstand.info -1] = self.player1_symbol
 
                 x_sprite = arcade.Sprite("X.png", 0.9)
-                x_sprite.set_position(gegenstand.center_x , gegenstand.center_y)
+                x_sprite.set_position(gegenstand.center_x +45 , gegenstand.center_y -190)
                 self.gegenstand_list.append(x_sprite)
                 self.felder.remove(gegenstand)
 
@@ -169,8 +169,8 @@ class  TicTacToe(arcade.Window):
                 self.felder_list[2] == self.felder_list[5] == self.felder_list[8] or \
                 self.felder_list[0] == self.felder_list[4] == self.felder_list[8] or \
                 self.felder_list[2] == self.felder_list[4] == self.felder_list[6]
-    
 
-tictactoe_spiel = TicTacToe(BREITE, HÖHE, "Suchspiel")
+
+
 
 arcade.run()
