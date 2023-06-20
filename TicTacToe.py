@@ -170,7 +170,7 @@ class  TicTacToe(arcade.Window):
                 self.felder_list[0] == self.felder_list[4] == self.felder_list[8] or \
                 self.felder_list[2] == self.felder_list[4] == self.felder_list[6]
 
-
+tictactoe_spiel = TicTacToe(BREITE, HÖHE, "Suchspiel")
 
 
 arcade.run()
