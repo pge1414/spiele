@@ -1,6 +1,6 @@
 import arcade, time, random
 
-BREITE = 700
+BREITE = 660
 HÖHE = 700
 
 class  TicTacToe(arcade.Window):
@@ -16,12 +16,16 @@ class  TicTacToe(arcade.Window):
         self.felder_list = []
         self.player1_symbol = "x"
         self.player2_symbol = "o"
+        self.background = None
+
 
         self.player1 = True
 
         self.setup()
 
     def setup(self):
+
+        self.background = arcade.load_texture('Back.jpg')
 
         field1 = arcade.Sprite("Field.png",0.9)
         field1.center_x = 200
@@ -139,7 +143,6 @@ class  TicTacToe(arcade.Window):
                 o_sprite.set_position(gegenstand.center_x-15, gegenstand.center_y -195)
                 self.gegenstand_list.append(o_sprite)
                 self.felder.remove(gegenstand)
-
                 self.player1 = True
 
                 print(gegenstand.info)
@@ -150,7 +153,7 @@ class  TicTacToe(arcade.Window):
 
     def winning(self):
          if self.gewinnprüfung():
-            if self.player1 == False:
+            if not self.player1:
                 print("Player 1 wins")
             else:
                 print("Player 2 wins")
@@ -158,9 +161,21 @@ class  TicTacToe(arcade.Window):
     def on_draw (self):
         self.clear()
 
+        arcade.draw_lrwh_rectangle_textured(0, 0,BREITE, HÖHE,self.background)
+
         self.gegenstand_list.draw()
+        
+        if self.gewinnprüfung():
+
+            arcade.draw_text("The WINNER is:",90,400,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
+            if not self.player1:
+                arcade.draw_text("Player 1",200,300,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
+
+            else:
+                arcade.draw_text("Player 2",200,300,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
 
     def gewinnprüfung(self):
+
         return self.felder_list[0] == self.felder_list[1] == self.felder_list[2] or \
                 self.felder_list[3] == self.felder_list[4] == self.felder_list[5] or \
                 self.felder_list[6] == self.felder_list[7] == self.felder_list[8] or \
@@ -169,8 +184,7 @@ class  TicTacToe(arcade.Window):
                 self.felder_list[2] == self.felder_list[5] == self.felder_list[8] or \
                 self.felder_list[0] == self.felder_list[4] == self.felder_list[8] or \
                 self.felder_list[2] == self.felder_list[4] == self.felder_list[6]
-
+    
 tictactoe_spiel = TicTacToe(BREITE, HÖHE, "Suchspiel")
-
 
 arcade.run()

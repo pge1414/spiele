@@ -1,7 +1,23 @@
-import TicTacToe, GameOver
-BREITE= 800
-HÖHE = 600
+import arcade, GameView, InstructionView
 
-tictactoe_spiel = TicTacToe(BREITE, HÖHE, "Suchspiel")
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+SCREEN_TITLE = "1"
 
-gameOver = GameOver(BREITE, HÖHE, "Jaaaa")
+
+class MyGame(arcade.Window):
+    
+
+    def main():
+
+        window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+        start_view = InstructionView()
+        window.show_view(start_view)
+
+        window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+        start_view = GameView()
+        window.show_view(start_view)
+        start_view.setup()
+        """ Main function """
+
+arcade.run()

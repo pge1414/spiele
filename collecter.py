@@ -104,6 +104,4 @@ class  Collecter(arcade.Window):
         if self.level_finished():
             print("WoooooHOOOOOO")
             
-
-spiel = Collecter(BREITE, HÖHE, "Suchspiel")
 arcade.run()
