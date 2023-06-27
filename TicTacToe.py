@@ -3,6 +3,7 @@ import arcade, time, random
 BREITE = 660
 HÖHE = 700
 
+
 class  TicTacToe(arcade.Window):
 
 
@@ -14,6 +15,7 @@ class  TicTacToe(arcade.Window):
         self.gegenstand_list = arcade.SpriteList()
         self.felder = arcade.SpriteList()
         self.felder_list = []
+        self.button_list = arcade.SpriteList()
         self.player1_symbol = "x"
         self.player2_symbol = "o"
         self.background = None
@@ -168,6 +170,34 @@ class  TicTacToe(arcade.Window):
         if self.gewinnprüfung():
 
             arcade.draw_text("The WINNER is:",90,400,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
+
+            replay_button = arcade.Sprite("GameButton.png",0.9)
+            replay_button.center_x = 350
+            replay_button.center_y = 100
+            replay_button.set_position(350,100)
+            replay_button.info = 1
+            replay_button.draw()
+            self.button_list.append(replay_button)
+
+    def on_mouse_drag(self, x, y, taste, modifiers):
+
+        pseudosprite = arcade.Sprite()
+        pseudosprite.center_x = x
+        pseudosprite.center_y = y
+        pseudosprite.set_hit_box([(-1, 1), (1, 1), (-1, -1), (1, -1)])
+
+        self.gegenstand_hitlist = arcade.check_for_collision_with_list(pseudosprite, self.button_list)
+
+        for gegenstand in self.gegenstand_hitlist:
+
+            self.clear(gegenstand)
+
+            replay_button = arcade.Sprite("GameButtonDrag.png",0.9)
+            replay_button.set_position(gegenstand.center_x, gegenstand.center_y)
+            replay_button.info = 1
+            replay_button.draw()
+
+
             if not self.player1:
                 arcade.draw_text("Player 1",200,300,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
 
