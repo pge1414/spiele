@@ -12,6 +12,13 @@ class  TicTacToe(arcade.Window):
 
         arcade.set_background_color(arcade.color.WHITE)
 
+        self.score_player1 = 0
+        self.score_player2 = 0
+
+        self.setup()
+
+    def setup(self):
+
         self.gegenstand_list = arcade.SpriteList()
         self.felder = arcade.SpriteList()
         self.felder_list = []
@@ -19,13 +26,10 @@ class  TicTacToe(arcade.Window):
         self.player1_symbol = "x"
         self.player2_symbol = "o"
         self.background = None
-
+        
+        self.play = True
 
         self.player1 = True
-
-        self.setup()
-
-    def setup(self):
 
         self.background = arcade.load_texture('Back.jpg')
 
@@ -112,46 +116,56 @@ class  TicTacToe(arcade.Window):
 
     def on_mouse_press(self, x, y, taste, modifiers):
 
-        pseudosprite = arcade.Sprite()
-        pseudosprite.center_x = x
-        pseudosprite.center_y = y
-        pseudosprite.set_hit_box([(-1, 1), (1, 1), (-1, -1), (1, -1)])
+        if self.play:
 
-        self.gegenstand_hitlist = arcade.check_for_collision_with_list(pseudosprite, self.felder)
+            pseudosprite = arcade.Sprite()
+            pseudosprite.center_x = x
+            pseudosprite.center_y = y
+            pseudosprite.set_hit_box([(-1, 1), (1, 1), (-1, -1), (1, -1)])
 
-        for gegenstand in self.gegenstand_hitlist:
-            
+            self.gegenstand_hitlist = arcade.check_for_collision_with_list(pseudosprite, self.felder)
 
-            if self.player1 == True:
+            for gegenstand in self.gegenstand_hitlist:
+                
 
-                self.felder_list[gegenstand.info -1] = self.player1_symbol
+                if self.player1 == True:
 
-                x_sprite = arcade.Sprite("X.png", 0.9)
-                x_sprite.set_position(gegenstand.center_x +45 , gegenstand.center_y -190)
-                self.gegenstand_list.append(x_sprite)
-                self.felder.remove(gegenstand)
+                    self.felder_list[gegenstand.info -1] = self.player1_symbol
 
-                self.player1 = False
+                    x_sprite = arcade.Sprite("X.png", 0.9)
+                    x_sprite.set_position(gegenstand.center_x +45 , gegenstand.center_y -190)
+                    self.gegenstand_list.append(x_sprite)
+                    self.felder.remove(gegenstand)
 
-                self.gewinnprüfung()
+                    self.player1 = False
 
-                print(gegenstand.info)
+                    self.gewinnprüfung()
 
-            elif self.player1 == False:
+                    print(gegenstand.info)
 
-                self.felder_list[gegenstand.info -1] = self.player2_symbol
+                elif self.player1 == False:
 
-                o_sprite = arcade.Sprite("Fett.png", 1)
-                o_sprite.set_position(gegenstand.center_x-15, gegenstand.center_y -195)
-                self.gegenstand_list.append(o_sprite)
-                self.felder.remove(gegenstand)
-                self.player1 = True
+                    self.felder_list[gegenstand.info -1] = self.player2_symbol
 
-                print(gegenstand.info)
-            
-            self.winning()
-            print(self.felder_list)
-            print(self.gewinnprüfung())
+                    o_sprite = arcade.Sprite("Fett.png", 1)
+                    o_sprite.set_position(gegenstand.center_x-15, gegenstand.center_y -195)
+                    self.gegenstand_list.append(o_sprite)
+                    self.felder.remove(gegenstand)
+                    self.player1 = True
+
+                    print(gegenstand.info)
+                
+                self.winning()
+                print(self.felder_list)
+                print(self.gewinnprüfung())
+
+        else:
+            if self.player1 == False:
+                self.score_player1 += 1
+            else:
+                self.score_player2 += 1
+                
+            self.setup()
 
     def winning(self):
          if self.gewinnprüfung():
@@ -164,6 +178,8 @@ class  TicTacToe(arcade.Window):
         self.clear()
 
         arcade.draw_lrwh_rectangle_textured(0, 0,BREITE, HÖHE,self.background)
+        arcade.draw_text(str(self.score_player1) + str(self.score_player2),60,640,arcade.color.FRENCH_WINE,font_size= 14, bold=True)
+
 
         self.gegenstand_list.draw()
         
@@ -171,38 +187,13 @@ class  TicTacToe(arcade.Window):
 
             arcade.draw_text("The WINNER is:",90,400,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
 
-            replay_button = arcade.Sprite("GameButton.png",0.9)
-            replay_button.center_x = 350
-            replay_button.center_y = 100
-            replay_button.set_position(350,100)
-            replay_button.info = 1
-            replay_button.draw()
-            self.button_list.append(replay_button)
-
-    def on_mouse_drag(self, x, y, taste, modifiers):
-
-        pseudosprite = arcade.Sprite()
-        pseudosprite.center_x = x
-        pseudosprite.center_y = y
-        pseudosprite.set_hit_box([(-1, 1), (1, 1), (-1, -1), (1, -1)])
-
-        self.gegenstand_hitlist = arcade.check_for_collision_with_list(pseudosprite, self.button_list)
-
-        for gegenstand in self.gegenstand_hitlist:
-
-            self.clear(gegenstand)
-
-            replay_button = arcade.Sprite("GameButtonDrag.png",0.9)
-            replay_button.set_position(gegenstand.center_x, gegenstand.center_y)
-            replay_button.info = 1
-            replay_button.draw()
-
-
             if not self.player1:
                 arcade.draw_text("Player 1",200,300,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
-
+                
             else:
-                arcade.draw_text("Player 2",200,300,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
+                arcade.draw_text("Player 2",200,300,arcade.color.FRENCH_WINE,font_size= 50, bold = True)
+                
+            self.play = False
 
     def gewinnprüfung(self):
 
@@ -215,6 +206,6 @@ class  TicTacToe(arcade.Window):
                 self.felder_list[0] == self.felder_list[4] == self.felder_list[8] or \
                 self.felder_list[2] == self.felder_list[4] == self.felder_list[6]
     
-tictactoe_spiel = TicTacToe(BREITE, HÖHE, "Suchspiel")
+tictactoe_spiel = TicTacToe(BREITE, HÖHE, "TicTacToe")
 
 arcade.run()

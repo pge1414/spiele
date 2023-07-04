@@ -1,23 +1,26 @@
-import arcade, GameView, InstructionView
+# Importing arcade module
+import arcade
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-SCREEN_TITLE = "1"
+# Creating MainGame class	
+class MainGame(arcade.Window):
+	def __init__(self):
+		super().__init__(600, 600, title="Keyboard Inputs")
 
+		self.x = 100
+		self.y = 100
 
-class MyGame(arcade.Window):
-    
+	def on_draw(self):
+		arcade.start_render()
 
-    def main():
+		arcade.draw_circle_filled(self.x, self.y,25,arcade.color.GREEN)
+		
+	def on_mouse_motion(self, x, y, dx, dy):
 
-        window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-        start_view = InstructionView()
-        window.show_view(start_view)
-
-        window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-        start_view = GameView()
-        window.show_view(start_view)
-        start_view.setup()
-        """ Main function """
-
+		self.x = x
+		self.y = y
+	
+	def on_mouse_press(self, x, y, button, modifiers):
+		print("Mouse button is pressed")
+					
+MainGame()
 arcade.run()
