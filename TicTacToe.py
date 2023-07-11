@@ -14,8 +14,8 @@ class  TicTacToe(arcade.Window):
 
         self.score_player1 = 0
         self.score_player2 = 0
-
-        self.setup()
+        self.play = False
+        self.phase = 1
 
     def setup(self):
 
@@ -31,7 +31,7 @@ class  TicTacToe(arcade.Window):
 
         self.player1 = True
 
-        self.background = arcade.load_texture('Back.jpg')
+        self.background = arcade.load_texture('Mountains.jpg')
 
         field1 = arcade.Sprite("Field.png",0.9)
         field1.center_x = 200
@@ -155,15 +155,17 @@ class  TicTacToe(arcade.Window):
 
                     print(gegenstand.info)
                 
+                self.unentschieden()
                 self.winning()
+                self.pointcounter()
                 print(self.felder_list)
+                print(self.felder)
                 print(self.gewinnprüfung())
+                print(self.unentschieden())
 
         else:
-            if self.player1 == False:
-                self.score_player1 += 1
-            else:
-                self.score_player2 += 1
+            if self.phase == 1:
+                self.phase = 2
                 
             self.setup()
 
@@ -174,26 +176,70 @@ class  TicTacToe(arcade.Window):
             else:
                 print("Player 2 wins")
 
-    def on_draw (self):
-        self.clear()
-
-        arcade.draw_lrwh_rectangle_textured(0, 0,BREITE, HÖHE,self.background)
-        arcade.draw_text(str(self.score_player1) + str(self.score_player2),60,640,arcade.color.FRENCH_WINE,font_size= 14, bold=True)
-
-
-        self.gegenstand_list.draw()
+    def unentschieden(self):
+        if len(self.felder) == 0 and not self.gewinnprüfung():
+            return True
+        else:
+            return False
         
-        if self.gewinnprüfung():
+    def pointcounter(self):
+        if not self.unentschieden():
+            if self.gewinnprüfung():
 
-            arcade.draw_text("The WINNER is:",90,400,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
+                if self.player1 == False:
+                    self.score_player1 += 1
+                else:
+                    self.score_player2 += 1
 
-            if not self.player1:
-                arcade.draw_text("Player 1",200,300,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
-                
-            else:
-                arcade.draw_text("Player 2",200,300,arcade.color.FRENCH_WINE,font_size= 50, bold = True)
-                
-            self.play = False
+
+    def on_draw (self):
+        if self.phase == 1:
+            arcade.draw_lrwh_rectangle_textured(0,0,BREITE, HÖHE, arcade.load_texture('Back.jpg'))
+
+            self.anfang_liste = arcade.SpriteList()
+
+            einstellungen = arcade.Sprite("einstellung.png",0.5)
+            einstellungen.center_x = 600
+            einstellungen.center_y = 660
+            self.anfang_liste.append(einstellungen)
+
+            self.anfang_liste.draw()
+
+            arcade.draw_text("Tab to play!!!", 40, 400, arcade.color.FRENCH_WINE, font_size= 70, bold= True)
+
+        if self.phase == 2:
+
+            self.clear()
+
+            arcade.draw_lrwh_rectangle_textured(0, 0,BREITE, HÖHE,self.background)
+            arcade.draw_text("Score 1: " + str(self.score_player1)+ "     |      Score 2: " + str(self.score_player2),60,640,arcade.color.FRENCH_WINE,font_size= 14, bold=True)
+
+
+            self.gegenstand_list.draw()
+            
+            if self.gewinnprüfung():
+
+                self.play = False
+
+                arcade.draw_text("The WINNER is:",90,400,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
+
+                arcade.draw_text(str(self.score_player1) + " : " + str(self.score_player2), 180, 500, arcade.color.FRENCH_WINE, font_size=100, bold=True)
+
+                if not self.player1:
+                    arcade.draw_text("Player 1",200,300,arcade.color.FRENCH_WINE,font_size= 50, bold=True)
+                    
+                else:
+                    arcade.draw_text("Player 2",200,300,arcade.color.FRENCH_WINE,font_size= 50, bold = True)
+            
+            if self.unentschieden():
+
+                self.play = False
+
+                arcade.draw_text("DRAW",120,400,arcade.color.FRENCH_WINE,font_size= 90, bold=True)
+
+                arcade.draw_text("What a mess!!!",170,300,arcade.color.FRENCH_WINE,font_size= 30)  
+
+            arcade.draw_text("Tap to play again...",240,200,arcade.color.FRENCH_WINE,font_size= 15)      
 
     def gewinnprüfung(self):
 
