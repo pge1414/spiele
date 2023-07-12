@@ -1,6 +1,6 @@
 import arcade, time, random
 
-BREITE = 660
+BREITE = 1200
 HÖHE = 700
 
 class  TicTacToe(arcade.Window):
@@ -25,7 +25,7 @@ class  TicTacToe(arcade.Window):
 
     def setup(self):
 
-        self.background = arcade.load_texture('Back.jpg')
+        self.background = arcade.load_texture('Sunset.jpeg')
 
         field1 = arcade.Sprite("Field.png",0.9)
         field1.center_x = 200
