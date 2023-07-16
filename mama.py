@@ -1,7 +1,11 @@
 import arcade, time, random
 
-BREITE = 1200
+BREITE = 670
 HÖHE = 700
+
+# Phase 1 = Startscreen
+# Phase 2 = Gamescreen
+# Phase 3 = Systemscreen
 
 
 class  TicTacToe(arcade.Window):
@@ -16,12 +20,12 @@ class  TicTacToe(arcade.Window):
         self.score_player2 = 0
         self.play = False
         self.phase = 1
+        self.anfang_liste = arcade.SpriteList()
 
     def setup(self):
 
-<<<<<<< HEAD
         self.background = arcade.load_texture('Sunset.jpeg')
-=======
+        
         self.gegenstand_list = arcade.SpriteList()
         self.felder = arcade.SpriteList()
         self.felder_list = []
@@ -35,7 +39,7 @@ class  TicTacToe(arcade.Window):
         self.player1 = True
 
         self.background = arcade.load_texture('Mountains.jpg')
->>>>>>> 3f390ad8814f50bfe0d3c23637627cc5c5d6945a
+
 
         field1 = arcade.Sprite("Field.png",0.9)
         field1.center_x = 200
@@ -169,7 +173,32 @@ class  TicTacToe(arcade.Window):
 
         else:
             if self.phase == 1:
-                self.phase = 2
+
+                pseudosprite = arcade.Sprite()
+                pseudosprite.center_x = x
+                pseudosprite.center_y = y
+                pseudosprite.set_hit_box([(-1, 1), (1, 1), (-1, -1), (1, -1)])
+
+                listencheck = arcade.check_for_collision_with_list(pseudosprite, self.anfang_liste)
+                if listencheck:
+                    self.phase = 3
+
+                else:
+                    self.phase = 2
+
+            if self.phase == 3:
+
+                pseudosprite = arcade.Sprite()
+                pseudosprite.center_x = x
+                pseudosprite.center_y = y
+                pseudosprite.set_hit_box([(-1, 1), (1, 1), (-1, -1), (1, -1)])
+
+                listencheck = arcade.check_for_collision_with_list(pseudosprite, self.settings_liste)
+
+                for setting in self.settings_liste():
+                    if setting == self.setting1:
+                        print("setting1")
+
                 
             self.setup()
 
@@ -195,12 +224,12 @@ class  TicTacToe(arcade.Window):
                 else:
                     self.score_player2 += 1
 
-
     def on_draw (self):
         if self.phase == 1:
-            arcade.draw_lrwh_rectangle_textured(0,0,BREITE, HÖHE, arcade.load_texture('Back.jpg'))
 
-            self.anfang_liste = arcade.SpriteList()
+            self.clear()
+
+            arcade.draw_lrwh_rectangle_textured(0,0,BREITE, HÖHE, arcade.load_texture('Back.jpg'))
 
             einstellungen = arcade.Sprite("einstellung.png",0.5)
             einstellungen.center_x = 600
@@ -234,6 +263,9 @@ class  TicTacToe(arcade.Window):
                     
                 else:
                     arcade.draw_text("Player 2",200,300,arcade.color.FRENCH_WINE,font_size= 50, bold = True)
+
+                arcade.draw_text("Tap to play again...",240,200,arcade.color.FRENCH_WINE,font_size= 15)      
+
             
             if self.unentschieden():
 
@@ -243,7 +275,22 @@ class  TicTacToe(arcade.Window):
 
                 arcade.draw_text("What a mess!!!",170,300,arcade.color.FRENCH_WINE,font_size= 30)  
 
-            arcade.draw_text("Tap to play again...",240,200,arcade.color.FRENCH_WINE,font_size= 15)      
+                arcade.draw_text("Tap to play again...",240,200,arcade.color.FRENCH_WINE,font_size= 15)      
+
+        if self.phase == 3:
+
+            self.clear()
+
+            self.play = False
+
+            self.settings_liste = arcade.SpriteList()
+
+            arcade.draw_lrwh_rectangle_textured(0, 0,BREITE, HÖHE,arcade.load_texture('Back.jpg'))
+            arcade.draw_text("Settings",170,600,arcade.color.FRENCH_WINE,font_size= 60, bold=True)
+
+            self.setting1 = arcade.draw_text("Background",50,500,arcade.color.FRENCH_WINE,font_size= 30, bold=False)
+            
+            self.settings_liste.append(self.setting1)
 
     def gewinnprüfung(self):
 
