@@ -21,6 +21,8 @@ class  TicTacToe(arcade.Window):
         self.play = False
         self.phase = 1
         self.anfang_liste = arcade.SpriteList()
+        self.settings_liste = arcade.SpriteList()
+        self.mode = "MULTIPLAYER"
 
     def setup(self):
 
@@ -153,21 +155,24 @@ class  TicTacToe(arcade.Window):
 
                 elif self.player1 == False:
 
-                    self.felder_list[gegenstand.info -1] = self.player2_symbol
+                    if self.mode == "SINGLEPLAYER":
 
-                    o_sprite = arcade.Sprite("Fett.png", 1)
-                    o_sprite.set_position(gegenstand.center_x-15, gegenstand.center_y -195)
-                    self.gegenstand_list.append(o_sprite)
-                    self.felder.remove(gegenstand)
-                    self.player1 = True
+                        pass
+
+                    else:
+                        self.felder_list[gegenstand.info -1] = self.player2_symbol
+
+                        o_sprite = arcade.Sprite("Fett.png", 1)
+                        o_sprite.set_position(gegenstand.center_x-15, gegenstand.center_y -195)
+                        self.gegenstand_list.append(o_sprite)
+                        self.felder.remove(gegenstand)
+                        self.player1 = True
 
                     print(gegenstand.info)
                 
                 self.unentschieden()
                 self.winning()
                 self.pointcounter()
-                print(self.felder_list)
-                print(self.felder)
                 print(self.gewinnprüfung())
                 print(self.unentschieden())
 
@@ -185,6 +190,8 @@ class  TicTacToe(arcade.Window):
 
                 else:
                     self.phase = 2
+                    self.setup()
+
 
             if self.phase == 3:
 
@@ -193,14 +200,25 @@ class  TicTacToe(arcade.Window):
                 pseudosprite.center_y = y
                 pseudosprite.set_hit_box([(-1, 1), (1, 1), (-1, -1), (1, -1)])
 
-                listencheck = arcade.check_for_collision_with_list(pseudosprite, self.settings_liste)
+                self.settings = arcade.check_for_collision_with_list(pseudosprite, self.settings_liste)
 
-                for setting in self.settings_liste():
-                    if setting == self.setting1:
-                        print("setting1")
+                for setting in self.settings:
+                    if setting == self.background_selection:
+                        print("skin")
 
-                
-            self.setup()
+                    if setting == self.skin_selection:
+                        print("background")
+
+                    if setting == self.back:
+                        self.phase = 1
+
+                    if setting == self.mode_selection:
+                        if self.mode == "SINGLEPLAYER":
+                            self.mode = "MULTIPLAYER"
+
+                        else:
+                            self.mode = "SINGLEPLAYER"
+
 
     def winning(self):
          if self.gewinnprüfung():
@@ -225,6 +243,7 @@ class  TicTacToe(arcade.Window):
                     self.score_player2 += 1
 
     def on_draw (self):
+
         if self.phase == 1:
 
             self.clear()
@@ -283,14 +302,32 @@ class  TicTacToe(arcade.Window):
 
             self.play = False
 
-            self.settings_liste = arcade.SpriteList()
-
-            arcade.draw_lrwh_rectangle_textured(0, 0,BREITE, HÖHE,arcade.load_texture('Back.jpg'))
+            arcade.draw_lrwh_rectangle_textured(0, 0,BREITE, HÖHE,arcade.load_texture('sunset.jpeg'))
             arcade.draw_text("Settings",170,600,arcade.color.FRENCH_WINE,font_size= 60, bold=True)
 
-            self.setting1 = arcade.draw_text("Background",50,500,arcade.color.FRENCH_WINE,font_size= 30, bold=False)
-            
-            self.settings_liste.append(self.setting1)
+            self.background_selection = arcade.Sprite("background.png",0.2)
+            self.background_selection.center_x = 200
+            self.background_selection.center_y = 100
+            self.settings_liste.append(self.background_selection)
+
+            self.skin_selection = arcade.Sprite("Skin.png",0.2)
+            self.skin_selection.center_x = 200
+            self.skin_selection.center_y = 300
+            self.settings_liste.append(self.skin_selection)
+
+            self.mode_selection = arcade.Sprite("singles.png",0.2)
+            self.mode_selection.center_x = 200
+            self.mode_selection.center_y = 500
+            self.settings_liste.append(self.mode_selection)
+
+            arcade.draw_text(self.mode,270,500,arcade.color.FRENCH_WINE,font_size= 20, bold=True)
+
+            self.back = arcade.Sprite("back.png",0.1)
+            self.back.center_x = 50
+            self.back.center_y = 650
+            self.settings_liste.append(self.back)
+
+            self.settings_liste.draw()
 
     def gewinnprüfung(self):
 
