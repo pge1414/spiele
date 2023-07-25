@@ -48,7 +48,7 @@ class  TicTacToe(arcade.Window):
         field1.center_y = 600
         field1.set_position(200,600)
         field1.info = 1
-        self.felder_list.append(field1.info)
+        self.felder_list.append(field1)
         self.gegenstand_list.append(field1)
         self.felder.append(field1)
 
@@ -57,7 +57,7 @@ class  TicTacToe(arcade.Window):
         field2.center_y = 600
         field2.set_position(400,600)
         field2.info = 2
-        self.felder_list.append(field2.info)
+        self.felder_list.append(field2)
         self.gegenstand_list.append(field2)
         self.felder.append(field2)
 
@@ -66,7 +66,7 @@ class  TicTacToe(arcade.Window):
         field3.center_y = 600
         field3.set_position(600,600)
         field3.info = 3
-        self.felder_list.append(field3.info)
+        self.felder_list.append(field3)
         self.gegenstand_list.append(field3)
         self.felder.append(field3)
 
@@ -75,7 +75,7 @@ class  TicTacToe(arcade.Window):
         field4.center_y = 400
         field4.set_position(200,400)
         field4.info = 4
-        self.felder_list.append(field4.info)
+        self.felder_list.append(field4)
         self.gegenstand_list.append(field4)
         self.felder.append(field4)
 
@@ -84,7 +84,7 @@ class  TicTacToe(arcade.Window):
         field5.center_y = 400
         field5.set_position(400,400)
         field5.info =5
-        self.felder_list.append(field5.info)
+        self.felder_list.append(field5)
         self.gegenstand_list.append(field5)
         self.felder.append(field5)
 
@@ -93,7 +93,7 @@ class  TicTacToe(arcade.Window):
         field6.center_y = 400
         field6.set_position(600,400)
         field6.info = 6
-        self.felder_list.append(field6.info)
+        self.felder_list.append(field6)
         self.gegenstand_list.append(field6)
         self.felder.append(field6)
 
@@ -102,7 +102,7 @@ class  TicTacToe(arcade.Window):
         field7.center_y = 200
         field7.set_position(200,200)
         field7.info = 7
-        self.felder_list.append(field7.info)
+        self.felder_list.append(field7)
         self.gegenstand_list.append(field7)
         self.felder.append(field7)
 
@@ -111,7 +111,7 @@ class  TicTacToe(arcade.Window):
         field8.center_y = 200
         field8.set_position(400,200)
         field8.info = 8
-        self.felder_list.append(field8.info)
+        self.felder_list.append(field8)
         self.gegenstand_list.append(field8)
         self.felder.append(field8)
 
@@ -120,7 +120,7 @@ class  TicTacToe(arcade.Window):
         field9.center_y = 200
         field9.set_position(600,200)
         field9.info = 9
-        self.felder_list.append(field9.info)
+        self.felder_list.append(field9)
         self.gegenstand_list.append(field9)
         self.felder.append(field9)
 
@@ -137,29 +137,51 @@ class  TicTacToe(arcade.Window):
 
             for gegenstand in self.gegenstand_hitlist:
                 
+                if self.mode == "SINGLEPLAYER":
+                        
+                        if self.player1 == True:
 
-                if self.player1 == True:
+                            self.felder_list[gegenstand.info -1] = self.player1_symbol
 
-                    self.felder_list[gegenstand.info -1] = self.player1_symbol
+                            x_sprite = arcade.Sprite("X.png", 0.9)
+                            x_sprite.set_position(gegenstand.center_x +45 , gegenstand.center_y -190)
+                            self.gegenstand_list.append(x_sprite)
+                            self.felder.remove(gegenstand)
 
-                    x_sprite = arcade.Sprite("X.png", 0.9)
-                    x_sprite.set_position(gegenstand.center_x +45 , gegenstand.center_y -190)
-                    self.gegenstand_list.append(x_sprite)
-                    self.felder.remove(gegenstand)
+                            self.player1 = False
 
-                    self.player1 = False
+                            self.gewinnprüfung()
 
-                    self.gewinnprüfung()
+                            print(gegenstand.info)
 
-                    print(gegenstand.info)
+                        elif self.player1 == False:
 
-                elif self.player1 == False:
+                            player2 = Level_2('player2')
+                            player2.zug(self.felder_list)
 
-                    if self.mode == "SINGLEPLAYER":
+                            self.felder_list[player2.zug(self.felder_list) -1] = self.player2_symbol
+                            print(self.felder_list)
+                            player1 = True
 
-                        pass
+                else:
 
-                    else:
+                    if self.player1 == True:
+
+                        self.felder_list[gegenstand.info -1] = self.player1_symbol
+
+                        x_sprite = arcade.Sprite("X.png", 0.9)
+                        x_sprite.set_position(gegenstand.center_x +45 , gegenstand.center_y -190)
+                        self.gegenstand_list.append(x_sprite)
+                        self.felder.remove(gegenstand)
+
+                        self.player1 = False
+
+                        self.gewinnprüfung()
+
+                        print(gegenstand.info)
+
+                    elif self.player1 == False:
+
                         self.felder_list[gegenstand.info -1] = self.player2_symbol
 
                         o_sprite = arcade.Sprite("Fett.png", 1)
@@ -168,7 +190,7 @@ class  TicTacToe(arcade.Window):
                         self.felder.remove(gegenstand)
                         self.player1 = True
 
-                    print(gegenstand.info)
+                        print(gegenstand.info)
                 
                 self.unentschieden()
                 self.winning()
@@ -341,5 +363,134 @@ class  TicTacToe(arcade.Window):
                 self.felder_list[2] == self.felder_list[4] == self.felder_list[6]
     
 tictactoe_spiel = TicTacToe(BREITE, HÖHE, "TicTacToe")
+
+class Level_2:
+    def __init__(self, name):
+        self.name = name
+    
+    def zug(self, spielfeld):
+        feld = 0
+        gültige_eingabe = False
+        if spielfeld[0] == spielfeld[1] == "x" and spielfeld[2] != "o":
+            feld = 3
+        elif spielfeld[1] == spielfeld[2] == "x" and spielfeld[0] != "o":
+            feld = 1
+        elif spielfeld[3] == spielfeld[4] == "x" and spielfeld[5] != "o":
+            feld = 6
+        elif spielfeld[4] == spielfeld[5] == "x" and spielfeld[3] != "o":
+            feld = 4
+        elif spielfeld[6] == spielfeld[7] == "x" and spielfeld[8] != "o":
+            feld = 9
+        elif spielfeld[7] == spielfeld[8] == "x" and spielfeld[6] != "o":
+            feld = 7
+        elif spielfeld[0] == spielfeld[3] == "x" and spielfeld[6] != "o":
+            feld = 7
+        elif spielfeld[3] == spielfeld[6] == "x" and spielfeld[0] != "o":
+            feld = 1
+        elif spielfeld[1] == spielfeld[4] == "x" and spielfeld[7] != "o":
+            feld = 8
+        elif spielfeld[4] == spielfeld[7] == "x" and spielfeld[1] != "o":
+            feld = 2
+        elif spielfeld[2] == spielfeld[5] == "x" and spielfeld[8] != "o": 
+            feld = 9                                
+        elif spielfeld[5] == spielfeld[8] == "x" and spielfeld[2] != "o":   
+            feld = 3
+        elif spielfeld[0] == spielfeld[4] == "x" and spielfeld[8] != "o":
+            feld = 9
+        elif spielfeld[4] == spielfeld[8] == "x" and spielfeld[0] != "o":
+            feld = 1
+        elif spielfeld[2] == spielfeld[4] == "x" and spielfeld[6] != "o":
+            feld = 7
+        elif spielfeld[4] == spielfeld[6] == "x" and spielfeld[2] != "o": 
+            feld = 3
+        elif spielfeld[0] == spielfeld[2] == "x" and spielfeld[1] != "o": 
+            feld = 2
+        elif spielfeld[3] == spielfeld[5] == "x" and spielfeld[4] != "o": 
+            feld = 5
+        elif spielfeld[6] == spielfeld[8] == "x" and spielfeld[7] != "o": 
+            feld = 8
+        elif spielfeld[0] == spielfeld[6] == "x" and spielfeld[3] != "o": 
+            feld = 4
+        elif spielfeld[1] == spielfeld[7] == "x" and spielfeld[4] != "o": 
+            feld = 5
+        elif spielfeld[2] == spielfeld[8] == "x" and spielfeld[5] != "o": 
+            feld = 6
+        elif spielfeld[0] == spielfeld[8] == "x" and spielfeld[4] != "o": 
+            feld = 5
+        elif spielfeld[2] == spielfeld[6] == "x" and spielfeld[4] != "o": 
+            feld = 5                               
+        elif spielfeld[0] == spielfeld[1] == "o" and spielfeld[2] != "x":
+            feld = 3
+        elif spielfeld[1] == spielfeld[2] == "o" and spielfeld[0] != "x":
+            feld = 1
+        elif spielfeld[3] == spielfeld[4] == "o" and spielfeld[5] != "x":
+            feld = 6
+        elif spielfeld[4] == spielfeld[5] == "o" and spielfeld[3] != "x":
+            feld = 4
+        elif spielfeld[6] == spielfeld[7] == "o" and spielfeld[8] != "x":
+            feld = 9
+        elif spielfeld[7] == spielfeld[8] == "o" and spielfeld[6] != "x":
+            feld = 7
+        elif spielfeld[0] == spielfeld[3] == "o" and spielfeld[6] != "x":
+            feld = 7
+        elif spielfeld[3] == spielfeld[6] == "o" and spielfeld[0] != "x":
+            feld = 1
+        elif spielfeld[1] == spielfeld[4] == "o" and spielfeld[7] != "x":
+            feld = 8
+        elif spielfeld[4] == spielfeld[7] == "o" and spielfeld[1] != "x":
+            feld = 2
+        elif spielfeld[2] == spielfeld[5] == "o" and spielfeld[8] != "x": 
+            feld = 9                                
+        elif spielfeld[5] == spielfeld[8] == "o" and spielfeld[2] != "x":   
+            feld = 3
+        elif spielfeld[0] == spielfeld[4] == "o" and spielfeld[8] != "x":
+            feld = 9
+        elif spielfeld[4] == spielfeld[8] == "o" and spielfeld[0] != "x":
+            feld = 1
+        elif spielfeld[2] == spielfeld[4] == "o" and spielfeld[6] != "x":
+            feld = 7
+        elif spielfeld[4] == spielfeld[6] == "o" and spielfeld[2] != "x": 
+            feld = 3
+        elif spielfeld[0] == spielfeld[2] == "o" and spielfeld[1] != "x": 
+            feld = 2
+        elif spielfeld[3] == spielfeld[5] == "o" and spielfeld[4] != "x": 
+            feld = 5
+        elif spielfeld[6] == spielfeld[8] == "o" and spielfeld[7] != "x": 
+            feld = 8
+        elif spielfeld[0] == spielfeld[6] == "o" and spielfeld[3] != "x": 
+            feld = 4
+        elif spielfeld[1] == spielfeld[7] == "o" and spielfeld[4] != "x": 
+            feld = 5
+        elif spielfeld[2] == spielfeld[8] == "o" and spielfeld[5] != "x": 
+            feld = 6
+        elif spielfeld[0] == spielfeld[8] == "o" and spielfeld[4] != "x": 
+            feld = 5
+        elif spielfeld[2] == spielfeld[6] == "o" and spielfeld[4] != "x": 
+            feld = 5                               
+        elif spielfeld[0] == "x" and spielfeld[4] != "o":
+            feld = 5  
+        elif spielfeld[2] == "x" and spielfeld[4] != "o":  
+            feld = 5
+        elif spielfeld[6] == "x" and spielfeld[4] != "o":  
+            feld = 5
+        elif spielfeld[8] == "x" and spielfeld[4] != "o":
+            feld = 5  
+        elif spielfeld[4] == "x" and spielfeld[0] != "o":  
+            feld = 1
+        elif spielfeld[1] == "x" and spielfeld[4] != "o":  
+            feld = 5
+        elif spielfeld[3] == "x" and spielfeld[4] != "o":
+            feld = 5  
+        elif spielfeld[5] == "x" and spielfeld[4] != "o":  
+            feld = 5
+        elif spielfeld[7] == "x" and spielfeld[4] != "o":  
+            feld = 5       
+
+        else:
+            while not gültige_eingabe:
+                feld += 1
+                if str(feld) in spielfeld and str(feld) != "x" and str(feld) != "o":
+                    gültige_eingabe = True
+        return feld        
 
 arcade.run()
