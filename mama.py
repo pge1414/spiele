@@ -32,6 +32,7 @@ class  TicTacToe(arcade.Window):
         self.felder = arcade.SpriteList()
         self.felder_ganz = arcade.SpriteList()
         self.felder_list = []
+        self.feld_löschen = []
         self.button_list = arcade.SpriteList()
         self.player1_symbol = "x"
         self.player2_symbol = "o"
@@ -52,7 +53,12 @@ class  TicTacToe(arcade.Window):
         self.felder_list.append(field1.info)
         self.gegenstand_list.append(field1)
         self.felder.append(field1)
+<<<<<<< HEAD
         self.felder_ganz.append(field1)
+=======
+        self.feld_löschen.append(field1.info)
+
+>>>>>>> 5c75676edd89e06cf453fa5b07025eb20ee16431
 
         field2 = arcade.Sprite("Field.png",0.9)
         field2.center_x = 400
@@ -62,7 +68,12 @@ class  TicTacToe(arcade.Window):
         self.felder_list.append(field2.info)
         self.gegenstand_list.append(field2)
         self.felder.append(field2)
+<<<<<<< HEAD
         self.felder_ganz.append(field2)
+=======
+        self.feld_löschen.append(field2.info)
+
+>>>>>>> 5c75676edd89e06cf453fa5b07025eb20ee16431
 
         field3 = arcade.Sprite("Field.png",0.9)
         field3.center_x = 600
@@ -72,7 +83,11 @@ class  TicTacToe(arcade.Window):
         self.felder_list.append(field3.info)
         self.gegenstand_list.append(field3)
         self.felder.append(field3)
+<<<<<<< HEAD
         self.felder_ganz.append(field3)
+=======
+        self.feld_löschen.append(field3.info)
+>>>>>>> 5c75676edd89e06cf453fa5b07025eb20ee16431
 
         field4 = arcade.Sprite("Field.png",0.9)
         field4.center_x = 200
@@ -82,7 +97,11 @@ class  TicTacToe(arcade.Window):
         self.felder_list.append(field4.info)
         self.gegenstand_list.append(field4)
         self.felder.append(field4)
+<<<<<<< HEAD
         self.felder_ganz.append(field4)
+=======
+        self.feld_löschen.append(field4.info)
+>>>>>>> 5c75676edd89e06cf453fa5b07025eb20ee16431
 
         field5 = arcade.Sprite("Field.png",0.9)
         field5.center_x = 400
@@ -92,7 +111,11 @@ class  TicTacToe(arcade.Window):
         self.felder_list.append(field5.info)
         self.gegenstand_list.append(field5)
         self.felder.append(field5)
+<<<<<<< HEAD
         self.felder_ganz.append(field5)
+=======
+        self.feld_löschen.append(field5.info)
+>>>>>>> 5c75676edd89e06cf453fa5b07025eb20ee16431
 
         field6 = arcade.Sprite("Field.png",0.9)
         field6.center_x = 600
@@ -102,7 +125,11 @@ class  TicTacToe(arcade.Window):
         self.felder_list.append(field6.info)
         self.gegenstand_list.append(field6)
         self.felder.append(field6)
+<<<<<<< HEAD
         self.felder_ganz.append(field6)
+=======
+        self.feld_löschen.append(field6.info)
+>>>>>>> 5c75676edd89e06cf453fa5b07025eb20ee16431
 
         field7 = arcade.Sprite("Field.png",0.9)
         field7.center_x = 200
@@ -112,7 +139,11 @@ class  TicTacToe(arcade.Window):
         self.felder_list.append(field7.info)
         self.gegenstand_list.append(field7)
         self.felder.append(field7)
+<<<<<<< HEAD
         self.felder_ganz.append(field7)
+=======
+        self.feld_löschen.append(field7.info)
+>>>>>>> 5c75676edd89e06cf453fa5b07025eb20ee16431
 
         field8 = arcade.Sprite("Field.png",0.9)
         field8.center_x = 400
@@ -122,7 +153,11 @@ class  TicTacToe(arcade.Window):
         self.felder_list.append(field8.info)
         self.gegenstand_list.append(field8)
         self.felder.append(field8)
+<<<<<<< HEAD
         self.felder_ganz.append(field8)
+=======
+        self.feld_löschen.append(field8.info)
+>>>>>>> 5c75676edd89e06cf453fa5b07025eb20ee16431
 
         field9 = arcade.Sprite("Field.png",0.9)
         field9.center_x = 600
@@ -132,7 +167,11 @@ class  TicTacToe(arcade.Window):
         self.felder_list.append(field9.info)
         self.gegenstand_list.append(field9)
         self.felder.append(field9)
+<<<<<<< HEAD
         self.felder_ganz.append(field9)
+=======
+        self.feld_löschen.append(field9.info)
+>>>>>>> 5c75676edd89e06cf453fa5b07025eb20ee16431
 
     def on_mouse_press(self, x, y, taste, modifiers):
 
@@ -148,20 +187,30 @@ class  TicTacToe(arcade.Window):
             for gegenstand in self.gegenstand_hitlist:
                 
                 if self.mode == "SINGLEPLAYER":
+<<<<<<< HEAD
+=======
 
-                    self.felder_list[gegenstand.info -1] = self.player1_symbol
+                        self.felder_list[gegenstand.info -1] = self.player1_symbol
+>>>>>>> 5c75676edd89e06cf453fa5b07025eb20ee16431
 
-                    x_sprite = arcade.Sprite("X.png", 0.9)
-                    x_sprite.set_position(gegenstand.center_x +45 , gegenstand.center_y -190)
-                    self.gegenstand_list.append(x_sprite)
-                    self.felder.remove(gegenstand)
+                        x_sprite = arcade.Sprite("X.png", 0.9)
+                        x_sprite.set_position(gegenstand.center_x +45 , gegenstand.center_y -190)
+                        self.gegenstand_list.append(x_sprite)
+                        self.felder.remove(gegenstand)
 
-                    self.player1 = False
+                        print(gegenstand.info)
 
-                    self.gewinnprüfung()
+                        self.gewinnprüfung()
 
-                    print(gegenstand.info)
+                        player2 = Level_2('player2')
+                        platz = player2.zug(self.felder_list)
+                        self.felder_list[platz -1] = self.player2_symbol
 
+                        print(platz)
+                        print(self.felder_list)
+                        print(self.felder)
+
+<<<<<<< HEAD
                     player2 = Level_2('player2')
                     print(player2.zug(self.felder_list))
                     pos = player2.zug(self.felder_list)-1
@@ -189,6 +238,34 @@ class  TicTacToe(arcade.Window):
                     elif self.player1 == False:
 
                        
+=======
+                        o_sprite = arcade.Sprite("Fett.png", 1)
+                        o_sprite.set_position(self.felder[platz-1].center_x, self.felder[platz-1].center_y)
+                        self.gegenstand_list.append(o_sprite)
+                        self.felder.remove([self.felder[platz]])
+
+                        self.gewinnprüfung()
+
+                else:
+
+                    if self.player1 == True:
+
+                        self.felder_list[gegenstand.info -1] = self.player1_symbol
+
+                        x_sprite = arcade.Sprite("X.png", 0.9)
+                        x_sprite.set_position(gegenstand.center_x +45 , gegenstand.center_y -190)
+                        self.gegenstand_list.append(x_sprite)
+                        self.felder.remove(gegenstand)
+
+                        self.player1 = False
+
+                        self.gewinnprüfung()
+
+                        print(gegenstand.info)
+
+                    elif self.player1 == False:
+
+>>>>>>> 5c75676edd89e06cf453fa5b07025eb20ee16431
                         self.felder_list[gegenstand.info -1] = self.player2_symbol
 
                         o_sprite = arcade.Sprite("Fett.png", 1)
@@ -252,6 +329,9 @@ class  TicTacToe(arcade.Window):
             else:
                 self.setup()
                 
+
+            if self.phase == 2:
+                self.setup()
 
 
     def winning(self):
